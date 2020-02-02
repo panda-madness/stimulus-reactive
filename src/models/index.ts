@@ -1,3 +1,4 @@
+import { Model } from './model'
 import { ModelDirective } from "../directives/model";
 import { TextModel } from "./text";
 import { Reactive } from "../reactive";

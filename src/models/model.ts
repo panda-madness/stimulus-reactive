@@ -1,3 +1,6 @@
+import { Reactive } from "../reactive";
+import { ModelDirective } from "../directives/model";
+
 export abstract class Model {
     protected element: Element;
     protected controller: Reactive;
