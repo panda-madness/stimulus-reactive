@@ -1,0 +1,18 @@
+{
+  "name": "stimulus-reactive",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stimulus/core": "^1.1.1",
+    "@stimulus/mutation-observers": "^1.1.1",
+    "@types/lodash-es": "^4.17.3",
+    "directives": "^0.0.0",
+    "fastdom": "^1.0.9",
+    "lodash-es": "^4.17.15",
+    "stimulus": "^1.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}

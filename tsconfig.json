@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "lib": ["DOM", "ES6"],
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
