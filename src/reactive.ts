@@ -16,6 +16,7 @@ export class Reactive extends C {
     this.elementMatchedAttribute = this.elementMatchedAttribute.bind(this);
     this.elementUnmatchedAttribute = this.elementUnmatchedAttribute.bind(this);
     this.elementAttributeValueChanged = this.elementAttributeValueChanged.bind(this);
+
     this.receiveValue = this.receiveValue.bind(this);
     this.handleExternalStateChange = this.handleExternalStateChange.bind(this);
 
@@ -50,12 +51,14 @@ export class Reactive extends C {
   }
 
   private elementUnmatchedAttribute(element: Element, attributeName: string): void {
+    this.children.get(element).destroy();
     this.children.delete(element);
   }
 
   private elementAttributeValueChanged(element: Element, attributeName: string): void {
     this.children.get(element).destroy();
     this.children.delete(element);
+    
     this.children.set(element, new ReactiveElement(element, this));
   }
 

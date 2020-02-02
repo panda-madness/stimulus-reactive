@@ -8,6 +8,7 @@ export class ReactiveElement {
 
     constructor(element: Element, controller: Reactive) {
         const raw = element.getAttribute(`data-${controller.identifier}`);
+        
         const directives = raw.split(' ').map(str => makeDirective(str));
 
         directives.forEach(d => {

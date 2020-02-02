@@ -1,43 +1,39 @@
-import { Reactive } from "reactive";
+import { Model } from "./model";
+import { get } from "lodash-es";
 
-export class RadioModel {
-    private element: HTMLInputElement;
-    private prop: string;
-    private controller: Reactive;
+export class RadioModel extends Model {
+    protected element: HTMLInputElement;
 
-    constructor(element: HTMLInputElement, prop: string, controller: Reactive) {
-        if (element.type !== 'radio') {
-            throw new Error('Element of RadioModel must be a radio button');
-        }
-
-        this.element = element;
-        this.prop = prop;
-        this.controller = controller;
-    }
-
-    getValue(): any 
+    emitValue(e: Event): any 
     {
-        const radio: HTMLInputElement = this.controller.element.querySelector(
-            `input[type="radio" data-${this.controller.identifier}="model:${this.prop}"]:checked`
+        const id = this.controller.identifier;
+        const prop = this.directive.prop;
+        const target = e.currentTarget as HTMLInputElement;
+
+        const group: NodeListOf<HTMLInputElement> = this.controller.element.querySelectorAll(
+            `input[type="radio"][data-${id}*="model:${prop}"]`
         );
 
-        if (!radio) {
-            return null;
-        }
+        Array.from(group).forEach(r => r.checked = false);
+        Array.from(group).filter(r => r.value === target.value).forEach(r => r.checked = true);
 
-        return radio.value;
+        this._dispatchValue(target.value);
     }
 
-    setValue(val: string): void
+    receiveState(e: CustomEvent): void
     {
+        const id = this.controller.identifier;
+        const prop = this.directive.prop;
+        const val = get(e.detail, prop);
+        
         const group: NodeListOf<HTMLInputElement> = this.controller.element.querySelectorAll(
-            `input[type="radio" data-${this.controller.identifier}="model:${this.prop}"]`
+            `input[type="radio"][data-${id}*="model:${prop}"]`
         );
 
         group.forEach($el => {
             this.element.checked = false;
         });
 
-        Array.from(group).find(el => el.value === val).checked = true;
+        Array.from(group).filter(el => el.value === val).forEach(r => r.checked = true);
     }
 }

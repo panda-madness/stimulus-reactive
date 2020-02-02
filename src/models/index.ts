@@ -1,17 +1,14 @@
 import { ModelDirective } from "../directives/model";
 import { TextModel } from "./text";
 import { Reactive } from "../reactive";
-
-export interface Model {
-    destroy(): void;
-}
+import { RadioModel } from "./radio";
 
 export function makeModel(element: Element, directive: ModelDirective, controller: Reactive): Model {
     if (element instanceof HTMLTextAreaElement) {
         return new TextModel(element, directive, controller);
     }
 
-    const types = [
+    const textTypes = [
         'text',
         'email',
         'number',
@@ -29,7 +26,11 @@ export function makeModel(element: Element, directive: ModelDirective, controlle
         'week'
     ];
 
-    if (element instanceof HTMLInputElement && types.indexOf(element.type) !== -1) {
+    if (element instanceof HTMLInputElement && textTypes.indexOf(element.type) !== -1) {
         return new TextModel(element, directive, controller);
+    }
+
+    if (element instanceof HTMLInputElement && element.type === 'radio') {
+        return new RadioModel(element, directive, controller);
     }
 }

@@ -3,7 +3,7 @@ export class ModelDirective {
   args: string[];
 
   constructor(raw: string) {
-    const [prop, ...args] = raw.split(',');
+    const [prop, ...args] = raw.split('|');
     this.prop = prop;
     this.args = args;
   }
