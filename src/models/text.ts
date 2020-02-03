@@ -8,10 +8,8 @@ export class TextModel extends Model {
         return this.directive.isLazy() ? 'change' : 'input';
     }
 
-    emitValue(e: Event) {
-        const target = e.currentTarget as HTMLInputElement | HTMLTextAreaElement;
-
-        this._dispatchValue(target.value);
+    emitValue() {
+        this._dispatchValue(this.element.value);
     }
 
     receiveState(e: CustomEvent) {

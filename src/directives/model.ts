@@ -1,6 +1,6 @@
 export class ModelDirective {
-  prop: string;
-  args: string[];
+  readonly prop: string;
+  readonly args: string[];
 
   constructor(raw: string) {
     const [prop, ...args] = raw.split('|');

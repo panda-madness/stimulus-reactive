@@ -6,7 +6,7 @@ export abstract class Model {
     protected controller: Reactive;
     protected directive: ModelDirective;
 
-    abstract emitValue(e: CustomEvent): void;
+    abstract emitValue(): void;
     abstract receiveState(e: CustomEvent): void;
 
     protected getEventName() {
@@ -14,13 +14,15 @@ export abstract class Model {
     }
 
     protected _dispatchValue(value: any) {
-        this.element.dispatchEvent(new CustomEvent(`${this.controller.identifier}:value`, {
+        const event = new CustomEvent(`${this.controller.identifier}:value`, {
             bubbles: true,
             detail: {
                 prop: this.directive.prop,
                 value: value,
             }
-        }));
+        });
+
+        this.element.dispatchEvent(event);
     }
 
     constructor(element: Element, directive: ModelDirective, controller: Reactive) {
@@ -30,16 +32,15 @@ export abstract class Model {
 
         this.emitValue = this.emitValue.bind(this);
         this.receiveState = this.receiveState.bind(this);
-
+        
+        this.element.addEventListener(this.getEventName(), this.emitValue);
         this.controller.element.addEventListener(`${this.controller.identifier}:state`, this.receiveState);
-
-        const event = this.getEventName();
-        this.element.addEventListener(event, this.emitValue);
+        this.controller.element.addEventListener(`${this.controller.identifier}:bootstrap`, this.emitValue);
     }
 
     destroy() {
-        const event = this.getEventName();
-        this.element.removeEventListener(event, this.emitValue);
+        this.element.removeEventListener(this.getEventName(), this.emitValue);
         this.controller.element.removeEventListener(`${this.controller.identifier}:state`, this.receiveState);
+        this.controller.element.removeEventListener(`${this.controller.identifier}:bootstrap`, this.emitValue);
     }
 }

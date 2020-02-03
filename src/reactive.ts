@@ -4,10 +4,8 @@ import { get, set } from 'lodash-es';
 import { ReactiveElement } from './reactive-element';
 
 export class Reactive extends C {
-  private observer: AttributeObserver;
-
+  private reactiveObserver: AttributeObserver;
   private stateObsercer: AttributeObserver;
-
   private children: Map<Element, ReactiveElement> = new Map();
 
   connect(): void {
@@ -20,7 +18,7 @@ export class Reactive extends C {
     this.receiveValue = this.receiveValue.bind(this);
     this.handleExternalStateChange = this.handleExternalStateChange.bind(this);
 
-    this.observer = new AttributeObserver(this.element, `data-${this.identifier}`, {
+    this.reactiveObserver = new AttributeObserver(this.element, `data-${this.identifier}`, {
       elementMatchedAttribute: this.elementMatchedAttribute,
       elementUnmatchedAttribute: this.elementUnmatchedAttribute,
       elementAttributeValueChanged: this.elementAttributeValueChanged,
@@ -30,16 +28,20 @@ export class Reactive extends C {
       elementAttributeValueChanged: this.handleExternalStateChange,
     });
 
-    this.observer.start();
+    this.reactiveObserver.start();
     this.stateObsercer.start();
 
     this.element.addEventListener(`${this.identifier}:value`, this.receiveValue);
 
-    this.emitState();
+    if (this.data.has('state')) {
+      this.emitState();
+    } else {
+      this.bootstrapState();
+    }
   }
 
   disconnect(): void {
-    this.observer.stop();
+    this.reactiveObserver.stop();
     this.stateObsercer.stop();
 
     this.element.removeEventListener(`${this.identifier}:value`, this.receiveValue);
@@ -63,14 +65,7 @@ export class Reactive extends C {
   }
 
   getState(key?: string) {
-    let state;
-
-    try {
-      state = JSON.parse(this.data.get('state'));
-    } catch {
-      state = {};
-      this.data.set('state', JSON.stringify(state));
-    }
+    const state = JSON.parse(this.data.get('state'));
 
     if (!key) {
       return state;
@@ -80,11 +75,9 @@ export class Reactive extends C {
   }
 
   setState(key: string, value: any) {
-    let state = this.getState();
+    let state = this.getState() ?? {};
     set(state, key, value);
     this.data.set('state', JSON.stringify(state));
-
-    this.emitState();
   }
 
   receiveValue(e: CustomEvent) {
@@ -102,5 +95,9 @@ export class Reactive extends C {
     this.element.dispatchEvent(new CustomEvent(`${this.identifier}:state`, {
       detail: this.getState()
     }));
+  }
+
+  bootstrapState() {
+    this.element.dispatchEvent(new CustomEvent(`${this.identifier}:bootstrap`));
   }
 }
