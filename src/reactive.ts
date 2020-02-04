@@ -1,11 +1,11 @@
 import { Controller as C } from '@stimulus/core';
-import { AttributeObserver } from '@stimulus/mutation-observers';
+import { AttributeObserver, ElementObserver } from '@stimulus/mutation-observers';
 import { get, set } from 'lodash-es';
 import { ReactiveElement } from './reactive-element';
 
 export class Reactive extends C {
   private reactiveObserver: AttributeObserver;
-  private stateObsercer: AttributeObserver;
+  private stateObserver: AttributeObserver;
   private children: Map<Element, ReactiveElement> = new Map();
 
   connect(): void {
@@ -24,12 +24,12 @@ export class Reactive extends C {
       elementAttributeValueChanged: this.elementAttributeValueChanged,
     });
 
-    this.stateObsercer = new AttributeObserver(this.element, `data-${this.identifier}-state`, {
+    this.stateObserver = new AttributeObserver(this.element, `data-${this.identifier}-state`, {
       elementAttributeValueChanged: this.handleExternalStateChange,
     });
 
     this.reactiveObserver.start();
-    this.stateObsercer.start();
+    this.stateObserver.start();
 
     this.element.addEventListener(`${this.identifier}:value`, this.receiveValue);
 
@@ -42,9 +42,10 @@ export class Reactive extends C {
 
   disconnect(): void {
     this.reactiveObserver.stop();
-    this.stateObsercer.stop();
+    this.stateObserver.stop();
 
     this.element.removeEventListener(`${this.identifier}:value`, this.receiveValue);
+
     super.disconnect();
   }
 

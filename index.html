@@ -1,110 +1,147 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
 
-  <body>
+<body>
 
-    <div class="container">
-      <h1>Reactive form controls</h1>
+<div class="container">
+  <h1>Reactive form controls</h1>
 
-      <div class="row">
-        <div class="col-12">
-          <div data-controller="reactive">
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="reactive-text">Reactive input</label>
-                  <input data-reactive="model:reactive-input.nested|lazy" id="reactive-text" type="text"
-                    class="form-control">
-                </div>
+  <div class="row">
+    <div class="col-12">
+      <div data-controller="reactive"
+           data-reactive-state='{"reactive-input": {"nested": "123asd"}, "reactive-radio": "option2", "reactive-checkbox": true}'>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="reactive-text">Reactive input</label>
+              <input data-reactive="model:reactive-input.nested|lazy" id="reactive-text" type="text"
+                     class="form-control">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="reactive-text-2">Second Reactive input</label>
+              <input type="text" id="reactive-text-2" class=form-control
+                     data-reactive="model:reactive-input.nested">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios1" value="option1"
+                         data-reactive="model:reactive-radio">
+                  Default radio
+                </label>
               </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="reactive-text-2">Second Reactive input</label>
-                  <input type="text" id="reactive-text-2" class=form-control
-                    data-reactive="model:reactive-input.nested"></span>
-                </div>
+              <div class="form-check">
+
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios2" value="option2"
+                         data-reactive="model:reactive-radio">
+                  Second default radio
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios3" value="option3"
+                         data-reactive="model:reactive-radio">
+                  Disabled radio
+                </label>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios1" value="option1" data-reactive="model:reactive-radio">
-                      Default radio
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios2" value="option2" data-reactive="model:reactive-radio">
-                      Second default radio
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios3" value="option3" data-reactive="model:reactive-radio">
-                      Disabled radio
-                    </label>
-                  </div>
-                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios5" value="option1"
+                         data-reactive="model:reactive-radio">
+                  Default radio
+                </label>
               </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios1" value="option1"
-                        data-reactive="model:reactive-radio">
-                      Default radio
-                    </label>
-                  </div>
-                  <div class="form-check">
-              
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios2" value="option2"
-                        data-reactive="model:reactive-radio">
-                      Second default radio
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" id="exampleRadios3" value="option3"
-                        data-reactive="model:reactive-radio">
-                      Disabled radio
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <div class="form-check">
 
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" id="exampleCheckbox1" value="option1"
-                        data-reactive="model:reactive-checkbox">
-                      Default checkbox
-                    </label>
-                  </div>
-                </div>
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios6" value="option2"
+                         data-reactive="model:reactive-radio">
+                  Second default radio
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" id="exampleRadios7" value="option3"
+                         data-reactive="model:reactive-radio">
+                  Disabled radio
+                </label>
               </div>
             </div>
           </div>
         </div>
 
-        <script src="src/index.ts"></script>
-  </body>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="exampleCheckbox1" value="option1"
+                         data-reactive="model:reactive-checkbox">
+                  Boolean checkbox
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="exampleCheckbox2" value="option1"
+                         data-reactive="model:reactive-checkbox-array">
+                  Array checkboxes
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="exampleCheckbox3" value="option2"
+                         data-reactive="model:reactive-checkbox-array">
+                  Array checkboxes
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="exampleCheckbox4" value="option3"
+                         data-reactive="model:reactive-checkbox-array">
+                  Array checkboxes
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/stimulus/dist/stimulus.umd.js"></script>
+<script src="dist/stimulus-reactive.es.js" type="module"></script>
+<script type="module">
+  import Reactive from "./dist/stimulus-reactive.es.js";
+  const app = Stimulus.Application.start();
+  app.register('reactive', Reactive);
+</script>
+</body>
 
 </html>

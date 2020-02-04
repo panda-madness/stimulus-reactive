@@ -1,5 +1,5 @@
-import { Model } from "./model";
-import { get } from "lodash-es";
+import {Model} from "./model";
+import {get} from "lodash-es";
 
 export class BooleanModel extends Model {
     protected element: HTMLInputElement;
@@ -10,8 +10,6 @@ export class BooleanModel extends Model {
 
     receiveState(e: CustomEvent) {
         const state = e.detail;
-        const value = get(state, this.directive.prop);
-
-        this.element.checked = value;
+        this.element.checked = get(state, this.directive.prop);
     }
 }
