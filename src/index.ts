@@ -1,3 +1,3 @@
-import { Reactive } from "./reactive";
+import { ReactiveController } from "./reactive_controller";
 
-export default Reactive;
+export default ReactiveController;

@@ -18,13 +18,12 @@
 
   <div class="row">
     <div class="col-12">
-      <div data-controller="reactive"
-           data-reactive-state='{"reactive-input": {"nested": "123asd"}, "reactive-radio": "option2", "reactive-checkbox": true}'>
+      <div data-controller="reactive">
         <div class="row">
           <div class="col-6">
             <div class="form-group">
               <label for="reactive-text">Reactive input</label>
-              <input data-reactive="model:reactive-input.nested|lazy" id="reactive-text" type="text"
+              <input data-reactive="model:reactive-input.nested|lazy bind:reactive-input->data-test" id="reactive-text" type="text"
                      class="form-control">
             </div>
           </div>
@@ -138,9 +137,9 @@
 <script src="https://unpkg.com/stimulus/dist/stimulus.umd.js"></script>
 <script src="dist/stimulus-reactive.es.js" type="module"></script>
 <script type="module">
-  import Reactive from "./dist/stimulus-reactive.es.js";
+  import ReactiveController from "./dist/stimulus-reactive.es.js";
   const app = Stimulus.Application.start();
-  app.register('reactive', Reactive);
+  app.register('reactive', ReactiveController);
 </script>
 </body>
 
