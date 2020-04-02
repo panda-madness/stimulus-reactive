@@ -1,4 +1,4 @@
-import Reactive from "../index";
+import { Reactive } from "../index";
 import { listen, stopListening } from "../util";
 
 const BINDABLE_TAGS = ['INPUT', 'SELECT', 'TEXTAREA'];

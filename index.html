@@ -62,6 +62,7 @@
 
     <div class="default-class" data-class="is-active,bg-red:text-input is-inactive,bg-blue:!text-input another-class:another-input"
       data-style="color:text-input padding:another-input"
+      data-show="text-input"
     >
       <h1 data-text="another-input">Hello world</h1>
     </div>
@@ -71,7 +72,7 @@
 <script src="https://unpkg.com/stimulus/dist/stimulus.umd.js"></script>
 <script src="dist/stimulus-reactive.es.js" type="module"></script>
 <script type="module">
-  import Reactive from "./dist/stimulus-reactive.es.js";
+  import { Reactive } from "./dist/stimulus-reactive.es.js";
   const app = Stimulus.Application.start();
   app.register('reactive', Reactive);
 </script>

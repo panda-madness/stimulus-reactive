@@ -7,8 +7,9 @@ import * as Html from './directives/html';
 import * as Bind from './directives/bind';
 import * as Class from './directives/class';
 import * as Style from './directives/style';
+import * as Show from './directives/show';
 
-export default class Reactive extends Controller {
+export class Reactive extends Controller {
     state: any = {};
 
     modelHandlers: Map<Element, Set<EventHandlerNonNull>> = new Map();
@@ -97,6 +98,10 @@ export default class Reactive extends Controller {
 
             if ($el.hasAttribute('data-style')) {
                 Style.update($el as HTMLElement | SVGElement, this);
+            }
+
+            if ($el.hasAttribute('data-show')) {
+                Show.update($el, this);
             }
         });
     }

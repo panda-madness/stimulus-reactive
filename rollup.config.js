@@ -12,8 +12,8 @@ export default {
         format: 'es',
     },
     plugins: [
-        resolve(),
-        commonjs(),
+        // resolve(),
+        // commonjs(),
         typescript(),
         serve(),
     ]

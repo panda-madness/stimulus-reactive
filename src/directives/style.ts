@@ -1,4 +1,4 @@
-import Reactive from "../index";
+import { Reactive } from "../index";
 
 export function update(node: HTMLElement | SVGElement, controller: Reactive) {
     const bindings = node.getAttribute('data-style').split(' ');
