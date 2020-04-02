@@ -6,6 +6,7 @@ import * as Text from './directives/text';
 import * as Html from './directives/html';
 import * as Bind from './directives/bind';
 import * as Class from './directives/class';
+import * as Style from './directives/style';
 
 export default class Reactive extends Controller {
     state: any = {};
@@ -92,6 +93,10 @@ export default class Reactive extends Controller {
 
             if ($el.hasAttribute('data-class')) {
                 Class.update($el, this);
+            }
+
+            if ($el.hasAttribute('data-style')) {
+                Style.update($el as HTMLElement | SVGElement, this);
             }
         });
     }

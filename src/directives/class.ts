@@ -4,9 +4,9 @@ export function update(node: Element, controller: Reactive) {
     const bindings = node.getAttribute('data-class').split(' ');
     
     bindings.forEach(b => {
-        let [prop, classesString] = b.split(':');
+        let [classesString, prop] = b.split(':');
         const classes = classesString.split(',');
-        
+
         let isPositive = true;
 
         if (prop.startsWith('!')) {
