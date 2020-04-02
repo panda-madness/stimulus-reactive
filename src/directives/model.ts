@@ -1,26 +1,78 @@
 import Reactive from "../index";
 import { listen, stopListening } from "../util";
 
-const bindableTags = ['INPUT', 'SELECT', 'TEXTAREA'];
-const nonSimpleInputs = ['BUTTON', 'SUBMIT', 'CHECKBOX', 'RADIO'];
+const BINDABLE_TAGS = ['INPUT', 'SELECT', 'TEXTAREA'];
+const ARRAY_INPUTS = ['CHECKBOX', 'RADIO'];
 
 function getInputValue(node: Element) {
-    if (node instanceof HTMLInputElement && !nonSimpleInputs.includes(node.type)) {
+    if (node instanceof HTMLSelectElement || node instanceof HTMLTextAreaElement) {
         return node.value;
     }
 
-    if (node instanceof HTMLSelectElement) {
+    if (!(node instanceof HTMLInputElement)) {
+        throw new Error('Invalid input type');
+    }
+
+    const nodeType = node.type.toUpperCase();
+
+    if (!ARRAY_INPUTS.includes(nodeType)) {
         return node.value;
     }
+
+    if (['CHECKBOX', 'RADIO'].includes(nodeType)) {
+        const form = node.form;
+
+        const $checkboxes = form.elements.namedItem(node.name);
+
+        if ($checkboxes instanceof RadioNodeList) {
+            if (nodeType === 'CHECKBOX') {
+                return Array.from($checkboxes)
+                    .filter(($c: HTMLInputElement) => $c.checked)
+                    .map(($c: HTMLInputElement) => $c.value);
+            }
+
+            return $checkboxes.value;
+        }
+
+        return node.checked;
+    }
+
+    return null;
 }
 
-function updateInputValue(node: Element, value: string) {
-    if (node instanceof HTMLInputElement && !nonSimpleInputs.includes(node.type)) {
+function updateInputValue(node: Element, value: any) {
+    if (node instanceof HTMLSelectElement || node instanceof HTMLTextAreaElement) {
         node.value = value;
     }
 
-    if (node instanceof HTMLSelectElement) {
+    if (!(node instanceof HTMLInputElement)) {
+        throw new Error('Invalid input type');
+    }
+
+    const nodeType = node.type.toUpperCase();
+
+    if (!ARRAY_INPUTS.includes(nodeType)) {
         node.value = value;
+    }
+
+    if (['CHECKBOX', 'RADIO'].includes(nodeType)) {
+        const form = node.form;
+
+        const $checkboxes = form.elements.namedItem(node.name);
+
+        if ($checkboxes instanceof RadioNodeList) {
+            if (value instanceof Array) {
+                $checkboxes.forEach(($c: HTMLInputElement) => {
+                    $c.checked = value.includes($c.value);
+                });
+                return;
+            }
+
+            $checkboxes.value = value;
+            return;
+        }
+
+        node.checked = Boolean(value);
     }
 }
 
@@ -41,7 +93,7 @@ function getModelProp(node: Element) {
 }
 
 export function bind(node: Element, controller: Reactive) {
-    if (!bindableTags.includes(node.tagName)) {
+    if (!BINDABLE_TAGS.includes(node.tagName)) {
         throw new Error(`data-model directives arent't supported on ${node.tagName} elements`);
     }
 
@@ -53,6 +105,7 @@ export function bind(node: Element, controller: Reactive) {
         controller.state[model] = getInputValue(node);
     };
 
+    handler();
     listen(node, bindEvent, handler);
 
     let handlers = controller.modelHandlers.get(node);

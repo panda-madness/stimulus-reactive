@@ -14,7 +14,7 @@
 <body>
 
 <div class="container">
-  <div data-controller="reactive">
+  <form data-controller="reactive">
     <div class="foo">
       <div class="bar">Hello</div>
       <div class="bar">World</div>
@@ -31,10 +31,39 @@
       <button>Hello</button>
     </div>
 
+    <div>
+      <label>
+        <input type="radio" name="test-radio" data-model="test-radio" value="1" />1
+      </label>
+      <label>
+        <input type="radio" name="test-radio" data-model="test-radio" value="2" />2
+      </label>
+      <label>
+        <input type="radio" name="test-radio" data-model="test-radio" value="3" />3
+      </label>
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" name="test-checkbox" data-model="test-checkbox" value="1" />1
+      </label>
+      <label>
+        <input type="checkbox" name="test-checkbox" data-model="test-checkbox" value="2" />2
+      </label>
+      <label>
+        <input type="checkbox" name="test-checkbox" data-model="test-checkbox" value="3" />3
+      </label>
+    </div>
+
+    <div>
+      <h1 data-text="test-radio"></h1>
+      <h1 data-text="test-checkbox"></h1>
+    </div>
+
     <div class="default-class" data-class="is-active,bg-red:text-input is-inactive,bg-blue:!text-input another-class:another-input"
       data-style="color:text-input padding:another-input"
     >
-      <h1>Hello world</h1>
+      <h1 data-text="another-input">Hello world</h1>
     </div>
   </div>
 </div>

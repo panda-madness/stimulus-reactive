@@ -12,6 +12,16 @@ export function update(node: Element, controller: Reactive) {
 
         const value = controller.state[prop];
 
+        if (value === false) {
+            node.removeAttribute(attr);
+            return;
+        }
+
+        if (value === true) {
+            node.setAttribute(attr, '');
+            return;
+        }
+
         node.setAttribute(attr, value);
     });
 }
