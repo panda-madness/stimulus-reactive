@@ -6,7 +6,8 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "lib": ["DOM", "ES6"],
-    "sourceMap": true
+    "sourceMap": true,
+    "strictFunctionTypes": false
   },
   "include": [
     "src/**/*"

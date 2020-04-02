@@ -6,6 +6,7 @@ import pkg from './package.json';
 
 export default {
     input: 'src/index.ts',
+    context: 'window',
     output: {
         file: 'dist/stimulus-reactive.es.js',
         format: 'es',
