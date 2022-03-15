@@ -14,7 +14,7 @@
     "@types/lodash-es": "^4.17.3",
     "directives": "^0.0.0",
     "fastdom": "^1.0.9",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "stimulus": "^1.1.1"
   },
   "devDependencies": {
